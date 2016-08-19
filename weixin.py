@@ -875,7 +875,8 @@ class WebWeixin(object):
 
     @catchKeyboardInterrupt
     def searchContacts(self, query):
-        res = [s for s in self.ContactList ]
+        res = [s['RemarkPYQuanPin'] for s in self.ContactList if query in s['RemarkPYQuanPin']]
+        print res
 
     @catchKeyboardInterrupt
     def start(self):
@@ -907,7 +908,7 @@ class WebWeixin(object):
                                                                          len(self.ContactList), len(self.SpecialUsersList), len(self.PublicUsersList)))
 
         print self.ContactList
-        
+
         print
         self._run('[*] 获取群 ... ', self.webwxbatchgetcontact)
         logging.debug('[*] 微信网页版 ... 开动')
