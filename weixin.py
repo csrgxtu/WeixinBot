@@ -22,7 +22,7 @@ from lxml import html
 # for media upload
 import mimetypes
 from requests_toolbelt.multipart.encoder import MultipartEncoder
-
+requests.packages.urllib3.disable_warnings()
 
 def catchKeyboardInterrupt(fn):
     def wrapper(*args):
@@ -809,11 +809,11 @@ class WebWeixin(object):
                 elif selector == '6':
                     # TODO
                     redEnvelope += 1
-                    print '[*] 收到疑似红包消息 %d 次' % redEnvelope
+                    # print '[*] 收到疑似红包消息 %d 次' % redEnvelope
                     logging.debug('[*] 收到疑似红包消息 %d 次' % redEnvelope)
                 elif selector == '7':
                     playWeChat += 1
-                    print '[*] 你在手机上玩微信被我发现了 %d 次' % playWeChat
+                    # print '[*] 你在手机上玩微信被我发现了 %d 次' % playWeChat
                     logging.debug('[*] 你在手机上玩微信被我发现了 %d 次' % playWeChat)
                     r = self.webwxsync()
                 elif selector == '0':
@@ -1078,7 +1078,7 @@ if __name__ == '__main__':
 
     logger = logging.getLogger(__name__)
     import coloredlogs
-    coloredlogs.install(level='DEBUG')
+    # coloredlogs.install(level='DEBUG')
 
     webwx = WebWeixin()
     webwx.start()
