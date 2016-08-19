@@ -825,6 +825,7 @@ class WebWeixin(object):
 
     def sendMsg(self, name, word, isfile=False):
         id = self.getUSerID(name)
+        print id
         if id:
             if isfile:
                 with open(word, 'r') as f:
