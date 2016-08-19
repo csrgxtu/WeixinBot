@@ -874,6 +874,10 @@ class WebWeixin(object):
         response = self.webwxsendmsgemotion(user_id, media_id)
 
     @catchKeyboardInterrupt
+    def searchContacts(self, query):
+        res = [s for s in self.ContactList ]
+
+    @catchKeyboardInterrupt
     def start(self):
         self._echo('[*] 微信网页版 ... 开动')
         print
@@ -901,6 +905,9 @@ class WebWeixin(object):
         print
         self._echo('[*] 共有 %d 个群 | %d 个直接联系人 | %d 个特殊账号 ｜ %d 公众号或服务号' % (len(self.GroupList),
                                                                          len(self.ContactList), len(self.SpecialUsersList), len(self.PublicUsersList)))
+
+        print self.ContactList
+        
         print
         self._run('[*] 获取群 ... ', self.webwxbatchgetcontact)
         logging.debug('[*] 微信网页版 ... 开动')
@@ -926,6 +933,8 @@ class WebWeixin(object):
                 print('[*] 退出微信')
                 logging.debug('[*] 退出微信')
                 exit()
+            elif text.split(':')[0] == 'searchContacts':
+                self.searchContacts(text.split(':')[1])
             elif text[:2] == '->':
                 [name, word] = text[2:].split(':')
                 if name == 'all':
