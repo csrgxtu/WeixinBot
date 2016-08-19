@@ -939,11 +939,14 @@ class WebWeixin(object):
             elif text.split(':')[0] == 'searchContacts':
                 self.searchContacts(text.split(':')[1])
             elif text[:2] == '->':
-                [name, word] = text[2:].split(':')
-                if name == 'all':
-                    self.sendMsgToAll(word)
-                else:
-                    self.sendMsg(name, word)
+                try:
+                    [name, word] = text[2:].split(':')
+                    if name == 'all':
+                        self.sendMsgToAll(word)
+                    else:
+                        self.sendMsg(name, word)
+                except:
+                    print '字符冲突'
             elif text[:3] == 'm->':
                 [name, file] = text[3:].split(':')
                 self.sendMsg(name, file, True)
