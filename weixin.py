@@ -875,7 +875,23 @@ class WebWeixin(object):
         user_id = self.getUSerID(name)
         response = self.webwxsendmsgemotion(user_id, media_id)
 
-    @catchKeyboardInterrupt
+    def getGroupID(self, name):
+        id = '@@000'
+        for member in self.GroupList:
+            if member['NickName'] == name:
+                id = member['UserName']
+        if id == '@@000':
+            # 现有群里面查不到
+            GroupList = self.getNameById(id)
+            for group in GroupList:
+                self.GroupList.append(group)
+                if group['NickName'] == name:
+                    id = group['UserName']
+                    MemberList = group['MemberList']
+                    for member in MemberList:
+                        self.GroupMemeberList.append(member)
+        return id
+
     def searchContacts(self, query):
         res = [s['RemarkPYQuanPin'] for s in self.ContactList if query in s['RemarkPYQuanPin']]
         print res
@@ -936,6 +952,10 @@ class WebWeixin(object):
                 exit()
             elif text.split(':')[0] == 'searchContacts':
                 self.searchContacts(text.split(':')[1])
+            elif text[:3] == 'g->':
+                [name, word] = text[3:].split(':')
+                id = self.getGroupID(name)
+                self.webwxsendmsg(word, id)
             elif text[:2] == '->':
                 try:
                     [name, word] = text[2:].split(':')
