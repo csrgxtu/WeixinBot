@@ -909,8 +909,6 @@ class WebWeixin(object):
         self._echo('[*] 共有 %d 个群 | %d 个直接联系人 | %d 个特殊账号 ｜ %d 公众号或服务号' % (len(self.GroupList),
                                                                          len(self.ContactList), len(self.SpecialUsersList), len(self.PublicUsersList)))
 
-        print self.ContactList
-
         print
         self._run('[*] 获取群 ... ', self.webwxbatchgetcontact)
         logging.debug('[*] 微信网页版 ... 开动')
