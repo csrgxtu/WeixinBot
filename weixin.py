@@ -295,6 +295,8 @@ class WebWeixin(object):
             MemberList = Contact['MemberList']
             for member in MemberList:
                 self.GroupMemeberList.append(member)
+
+        print self.GroupMemeberList
         return True
 
     def getNameById(self, id):
